@@ -43,6 +43,7 @@ public class FacilityServiceImpl implements FacilityService {
     public List<FacilityResponseDto> getAllFacilityv1() {
         List<Facility> facilities = facilityRepository.findAll();
         if (facilities.isEmpty())
+
             throw new NotFoundExecption(Messages.FACILITY + Messages.ONE_TAB + Messages.NOT_FOUND);
         return facilities.stream().map(FacitityDtoToFacility::facilityToReturnDtov1).collect(Collectors.toList());
     }
@@ -55,6 +56,7 @@ public class FacilityServiceImpl implements FacilityService {
             if (!existing.getId().equals(facilityId))
                 throw new AlreadyPresentException(Messages.FACILITY + Messages.ONE_TAB + Messages.ALREADY_PRESENT);
         });
+        System.out.println("gf");
         facility.setFacility(facilityRequestDto.getFacility());
         facility.setLogo(facilityRequestDto.getFacility());
         return FacitityDtoToFacility.facilityToReturnDtov1(facilityRepository.save(facility));
@@ -69,6 +71,7 @@ public class FacilityServiceImpl implements FacilityService {
         theaterFacilities.stream().forEach(facility1 -> {
            theaterFacilityRepository.deleteById(facility1.getId());
         });
+
 
         return Messages.SUCCESS;
     }
